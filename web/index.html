@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        * {box-sizing: border-box;}
+        input[type=text], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
+        }
+        input[type=submit] {
+            background-color: #aa048c;
+            color: #ffc0cb;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type=submit]:hover {
+            background-color: #aa0420;
+        }
+        .container {
+            border-radius: 5px;
+            background-color: #ffc0cb;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body style="background-color:#ffc0cb;">
+    <h1>การจำแนกอาการไข้หวัด</h1>
+    <p>
+        <form action="http://localhost:5000", method="POST">
+        ปวดศีรษะ : <input type='text' name='head'><br>
+        น้ำมูกไหล : <input type='text' name='nose'><br>
+        เจ็บคอ : <input type='text' name='neck'><br>
+        ไข้ : <input type='text' name='fever'><br>
+        จำแนกเป็น: {{result}} <br>
+        <input type="submit" value="Predict">
+    </form>
+    </p>
+</body>
+</html>
