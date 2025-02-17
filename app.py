@@ -4,20 +4,36 @@ import pandas as pd
 import joblib
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
+import os
 
 app = Flask(__name__, template_folder='web')
+
+# Fetch database credentials from environment variables
+MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
+MYSQL_PORT = int(os.getenv("MYSQL_PORT", 3306))
+MYSQL_USER = os.getenv("MYSQL_USER", "root")
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "123456")
+MYSQL_DATABASE = os.getenv("MYSQL_DATABASE", "test2")
 
 # Function to fetch data from MySQL and train model
 def fetch_and_train_model():
     try:
         # Connect to the MySQL database
+        # conn = mysql.connector.connect(
+        #     host='localhost',
+        #     port=3306,
+        #     user='root',
+        #     password='123456',
+        #     database='test2',
+        # )
         conn = mysql.connector.connect(
-            host='localhost',
-            port=3306,
-            user='root',
-            password='123456',
-            database='test2',
+            host=MYSQL_HOST,
+            port=MYSQL_PORT,
+            user=MYSQL_USER,
+            password=MYSQL_PASSWORD,
+            database=MYSQL_DATABASE,
         )
+
 
         # Write the SQL query
         query = "SELECT * FROM ColdSyndromeInsert"
@@ -82,3 +98,5 @@ def predict():
 # Run Flask application
 if __name__ == '__main__':
     app.run(debug=True)  # Enable debug mode for better error messages
+
+
