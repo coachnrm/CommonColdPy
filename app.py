@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-import joblib
+import pickle
 import numpy as np
 
 app = Flask(__name__, template_folder='web')
@@ -20,7 +20,8 @@ def predict():
             fever = int(request.form['fever'])
 
             # Load the trained model
-            loaded_model = joblib.load('common-cold.sav')
+            # loaded_model = joblib.load('common-cold.sav')
+            loaded_model = pickle.load(open('common-cold.sav', 'rb'))
 
             # Make prediction
             result = loaded_model.predict([[head, nose, neck, fever]])[0]
