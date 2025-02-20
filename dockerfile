@@ -1,24 +1,24 @@
-# Use official Python runtime
+# Use an official Python runtime as a parent image
 FROM python:3.9
 
-# Set working directory in container
+# Set the working directory
 WORKDIR /app
 
-# Copy all files to the container
-COPY . .
+# Copy application files
+COPY . /app
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port Flask will run on
+# Ensure MySQL client libraries are installed
+RUN apt-get update && apt-get install -y default-libmysqlclient-dev gcc
+
+# Expose port 5000
 EXPOSE 5000
 
-# Set environment variables for MySQL connection
-ENV MYSQL_HOST=mariadb
-ENV MYSQL_PORT=3306
-ENV MYSQL_USER=root
-ENV MYSQL_PASSWORD=123456
-ENV MYSQL_DATABASE=test
+# Set environment variables
+ENV FLASK_APP=app.py
+ENV FLASK_ENV=production
 
 # Run Gunicorn WSGI server with 4 worker processes
 CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]
